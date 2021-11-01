@@ -2461,6 +2461,8 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
 
         # Create 1st tickets
         start = arrow.utcnow().timestamp
+        if callable(start):
+            start = start()
         issue = pagure.lib.model.Issue(
             id=pagure.lib.query.get_next_id(self.session, repo.id),
             project_id=repo.id,
@@ -2475,6 +2477,8 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
 
         time.sleep(1)
         middle = arrow.utcnow().timestamp
+        if callable(middle):
+            middle = middle()
 
         # Create 2nd tickets
         issue = pagure.lib.model.Issue(
@@ -2491,6 +2495,8 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
 
         time.sleep(1)
         final = arrow.utcnow().timestamp
+        if callable(final):
+            final = final()
 
         # Create private issue
         issue = pagure.lib.model.Issue(
@@ -2576,7 +2582,7 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
                     "no_stones": None,
                     "order": None,
                     "priority": None,
-                    "since": str(start),
+                    "since": start,
                     "status": None,
                     "tags": [],
                 },
@@ -2615,7 +2621,7 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
                     "no_stones": None,
                     "order": None,
                     "priority": None,
-                    "since": str(middle),
+                    "since": middle,
                     "status": None,
                     "tags": [],
                 },
@@ -2654,7 +2660,7 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
                     "no_stones": None,
                     "order": None,
                     "priority": None,
-                    "since": str(final),
+                    "since": final,
                     "status": None,
                     "tags": [],
                 },
@@ -2697,7 +2703,7 @@ class PagureFlaskApiIssuetests(tests.SimplePagureTest):
                     "no_stones": None,
                     "order": None,
                     "priority": None,
-                    "since": str(final),
+                    "since": final,
                     "status": None,
                     "tags": [],
                 },
